@@ -1,0 +1,19 @@
+resource "google_storage_bucket" "raw" {
+  name     = "taxi-raw-${var.environment}-${var.project_id}"
+  location = "US"
+  uniform_bucket_level_access = true
+  lifecycle_rule {
+    condition { age = 90 }
+    action { type = "SetStorageClass"; storage_class = "NEARLINE" }
+  }
+  lifecycle_rule {
+    condition { age = 365 }
+    action { type = "SetStorageClass"; storage_class = "ARCHIVE" }
+  }
+}
+
+resource "google_storage_bucket" "processed" {
+  name     = "taxi-processed-${var.environment}-${var.project_id}"
+  location = "US"
+  uniform_bucket_level_access = true
+}

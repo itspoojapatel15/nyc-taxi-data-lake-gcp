@@ -1,0 +1,7 @@
+version: 2
+sources:
+  - name: taxi_external
+    schema: taxi_analytics
+    tables:
+      - name: yellow_trips_external
+      - name: zone_aggregates_external

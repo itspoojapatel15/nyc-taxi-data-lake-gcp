@@ -1,0 +1,23 @@
+select
+    tpep_pickup_datetime as pickup_at,
+    tpep_dropoff_datetime as dropoff_at,
+    passenger_count,
+    trip_distance,
+    PULocationID as pickup_zone_id,
+    DOLocationID as dropoff_zone_id,
+    fare_amount,
+    tip_amount,
+    total_amount,
+    payment_type,
+    trip_duration_min,
+    avg_speed_mph,
+    fare_per_mile,
+    tip_percentage,
+    time_of_day,
+    is_weekend,
+    pickup_hour,
+    pickup_date,
+    'yellow' as trip_type,
+    year,
+    month
+from {{ source('taxi_external', 'yellow_trips_external') }}
