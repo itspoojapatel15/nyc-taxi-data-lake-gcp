@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>NYC Taxi Data Lake — GCP + PySpark</title></head><body style="margin:0;padding:0;">
+        <div style="font-family:'Segoe UI',system-ui,sans-serif;max-width:1200px;margin:0 auto;padding:30px;background:#0d1117;color:#c9d1d9;min-height:100vh;">
+          <h1 style="color:#4285f4;border-bottom:1px solid #30363d;padding-bottom:16px;">🚕 NYC Taxi Data Lake — PySpark on GCP</h1>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin:24px 0;">
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center;">
+              <div style="color:#8b949e;font-size:12px;">Trips Processed</div>
+              <div style="color:#fbbc04;font-size:28px;font-weight:700;">54.2M</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center;">
+              <div style="color:#8b949e;font-size:12px;">Parquet Size (GCS)</div>
+              <div style="color:#fbbc04;font-size:28px;font-weight:700;">8.4 GB</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center;">
+              <div style="color:#8b949e;font-size:12px;">Dataproc Nodes</div>
+              <div style="color:#fbbc04;font-size:28px;font-weight:700;">2-10</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center;">
+              <div style="color:#8b949e;font-size:12px;">Taxi Zones</div>
+              <div style="color:#fbbc04;font-size:28px;font-weight:700;">263</div>
+            </div>
+          </div>
+
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin:20px 0;">
+            <h3 style="color:#f0f6fc;margin-top:0;">⚡ PySpark Transform Job Output</h3>
+            <div style="font-family:'Cascadia Code',monospace;font-size:12px;line-height:1.6;background:#0d1117;padding:12px;border-radius:6px;">
+              <div style="color:#3fb950;">$ spark-submit spark_jobs/transform_trips.py --month 2024-01</div>
+              <div style="color:#8b949e;">24/01/15 10:00:00 INFO SparkContext: Running Spark version 3.5.0</div>
+              <div style="color:#c9d1d9;">24/01/15 10:00:05 INFO Reading raw parquet from gs://taxi-data-lake/raw/yellow/2024-01/</div>
+              <div style="color:#c9d1d9;">24/01/15 10:00:12 INFO Raw records: 54,247,831</div>
+              <div style="color:#c9d1d9;">24/01/15 10:00:18 INFO After filtering invalid records: 52,891,204 (97.5% retained)</div>
+              <div style="color:#c9d1d9;">24/01/15 10:01:45 INFO Derived columns added: trip_duration_min, avg_speed_mph, fare_per_mile, tip_pct, time_of_day</div>
+              <div style="color:#c9d1d9;">24/01/15 10:02:30 INFO Writing Hive-partitioned Parquet to gs://taxi-data-lake/processed/yellow/</div>
+              <div style="color:#3fb950;">24/01/15 10:03:15 INFO Transform complete — 52.9M records in 3m 15s</div>
+            </div>
+          </div>
+
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin:20px 0;">
+            <h3 style="color:#f0f6fc;margin-top:0;">📊 BigQuery — Trip Duration by Time of Day</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <tr style="border-bottom:1px solid #30363d;color:#8b949e;"><th style="text-align:left;padding:8px;">Time of Day</th><th>Avg Duration</th><th>Avg Speed</th><th>Avg Fare</th><th>Avg Tip %</th><th>Trip Count</th></tr>
+              <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px;">🌅 Morning Rush</td><td>18.3 min</td><td>12.4 mph</td><td>$22.50</td><td>18.2%</td><td>12.4M</td></tr>
+              <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px;">☀️ Midday</td><td>14.1 min</td><td>15.8 mph</td><td>$18.20</td><td>19.5%</td><td>15.8M</td></tr>
+              <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px;">🌆 Evening Rush</td><td>22.7 min</td><td>9.2 mph</td><td>$28.40</td><td>17.8%</td><td>14.2M</td></tr>
+              <tr style="border-bottom:1px solid #21262d;"><td style="padding:8px;">🌙 Night</td><td>12.5 min</td><td>18.1 mph</td><td>$16.80</td><td>20.1%</td><td>8.1M</td></tr>
+              <tr><td style="padding:8px;">🌃 Late Night</td><td>10.8 min</td><td>22.3 mph</td><td>$14.50</td><td>15.2%</td><td>2.4M</td></tr>
+            </table>
+          </div>
+        </div>
+        </body></html>
